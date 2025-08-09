@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple To-Do App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #143b77;
+      display: flex;
+      justify-content: center;
+      padding-top: 50px;
+    }
+
+    .todo-container {
+      background: #41a011;
+      padding: 20px;
+      width: 350px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgb(219, 225, 230);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 75%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin: 10px 0;
+      padding: 8px;
+      background: #b9acac;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li.completed {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="todo-container">
+    <h2>📝 To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskText = taskInput.value.trim();
+
+      if (taskText === "") {
+        alert("Please enter a task!");
+        return;
+      }
+
+      const li = document.createElement("li");
+
+      li.innerHTML = `
+        <span onclick="toggleComplete(this)">${taskText}</span>
+        <button class="delete-btn" onclick="removeTask(this)">Delete</button>
+      `;
+
+      document.getElementById("taskList").appendChild(li);
+      taskInput.value = "";
+    }
+
+    function removeTask(button) {
+      const li = button.parentElement;
+      li.remove();
+    }
+
+    function toggleComplete(span) {
+      span.parentElement.classList.toggle("completed");
+    }
+  </script>
+</body>
+</html>
